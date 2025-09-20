@@ -10,9 +10,11 @@ public class PacienteEspecial extends Paciente {
         this.planoSaude = planoSaude;
     }
     public PlanoSaude getPlanoSaude(){
+
         return planoSaude;
     }
     public void setPlanoSaude(PlanoSaude planoSaude){
+
         this.planoSaude = planoSaude;
     }
 

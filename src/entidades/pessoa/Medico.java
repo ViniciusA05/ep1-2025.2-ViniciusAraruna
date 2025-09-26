@@ -3,7 +3,7 @@ package entidades.pessoa;
 import entidades.consulta.Consulta;
 
 import java.util.ArrayList;
-import java.util.List
+import java.util.List;
 
 public class Medico extends Pessoa {
 
@@ -18,7 +18,7 @@ public class Medico extends Pessoa {
         this.CRM = CRM;
         this.especialidade = especialidade;
         this.custoConsulta = custoConsulta;
-        this.agenda = new ArrayList<>()
+        this.agenda = new ArrayList<>();
     }
     public String getCRM(){
         return CRM;

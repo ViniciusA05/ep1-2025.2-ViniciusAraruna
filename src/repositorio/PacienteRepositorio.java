@@ -5,7 +5,6 @@ import entidades.pessoa.PacienteEspecial;
 import entidades.plano.PlanoSaude;
 
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 

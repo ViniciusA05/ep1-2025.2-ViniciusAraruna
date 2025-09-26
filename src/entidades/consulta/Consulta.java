@@ -15,6 +15,7 @@ public class Consulta {
     private String status;
     private String diagnostico;
     private String prescricaoMedicamentos;
+    private double custoConsulta;
 
     public Consulta (Paciente paciente, Medico medico,LocalDateTime dataHora, String local){
         this.paciente = paciente;
@@ -22,6 +23,7 @@ public class Consulta {
         this.dataHora = dataHora;
         this.local = local;
         this.status = "Agendada";//Status: concluida, em processo, disponível...
+        this.custoConsulta = 0.0;
     }
 
     public Paciente getPaciente(){
@@ -49,6 +51,10 @@ public class Consulta {
         return prescricaoMedicamentos;
     }
 
+    public double getCustoConsulta() {
+        return custoConsulta;
+    }
+
     public void setStatus(String status){
         this.status = status;
     }
@@ -61,4 +67,7 @@ public class Consulta {
         this.prescricaoMedicamentos = prescricaoMedicamentos;
     }
 
+    public void setCustoConsulta(double custoConsulta) {
+        this.custoConsulta = custoConsulta;
+    }
 }

@@ -36,8 +36,8 @@ public class MedicoRepositorio {
         List<Medico> medicos = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(NOME_ARQUIVO))){
             String linha;
-            while ((linha = reader.readLine() != null)){
-                String[] dados = linha.split(";")
+            while ((linha = reader.readLine()) != null){
+                String[] dados = linha.split(";");
                 String nome = dados[0].split(":")[1];
                 String cpf = dados[1].split(":")[1];
                 int idade = Integer.parseInt(dados[2].split(":")[1]);

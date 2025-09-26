@@ -25,7 +25,7 @@ public class InternacaoRepositorio {
                         internacao.getCustoInternacao(),
                         internacao.isInternacaoAtiva(),
                         internacao.getPaciente().getCpf(),
-                        internacao.getMedicoResponsavel().getCRM(),
+                        internacao.getMedicoResponsavel().getCRM()
                         );
                 writer.write(linha);
                 writer.newLine();

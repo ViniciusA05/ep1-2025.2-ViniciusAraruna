@@ -21,8 +21,9 @@ public class PacienteRepositorio {
                         paciente.getIdade());
                 if(paciente instanceof PacienteEspecial){
                     PacienteEspecial pe = (PacienteEspecial) paciente;
-                    linha+= String.format("Tipo: Especial; Plano de Saúde: %s"),
-                    pe.getPlanoSaude().getNomePlano());
+                    linha += String.format("Tipo: Especial;Plano de Saúde: %s",
+                    pe.getPlanoSaude().getNomePlano()
+                            );
                 }
                 else {
                     linha+="Tipo: Comum;";

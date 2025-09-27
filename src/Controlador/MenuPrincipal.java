@@ -221,5 +221,32 @@ private void agendarConsulta(){
         internacaoServico.darAlta(internacaoAtiva,custoBase);
         System.out.println("Alta realizada com sucesso!! Custo final calculado!");
     }
+//menu + metodos do relatorio
+    private void menuRelatorios(){
+        int opcao;
+        do {
+            System.out.println("\n--- Menu de Relatórios ---");
+            System.out.println("1. Histórico completo dos pacientes ");
+            System.out.println("2. Pacientes internados atualmente ");
+            System.out.println("3. Médico que mais atendeu ");
+            System.out.println("4. Voltar ao Menu Principal");
+            if (scanner.hasNextInt()){
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+            }else {
+                System.out.println("Opção inválida!");
+                scanner.nextLine();
+                opcao=0;
+            }
+            switch (opcao){
+                case 1: relatoriosServico.relatorioPacienteComHistorico();break;
+                case 2: relatoriosServico.relatorioPacientesInternado();break;
+                case 3: relatoriosServico.medicoMaisAtendeu();break;
+                case 4: break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }while (opcao != 4);
+    }
 }
 

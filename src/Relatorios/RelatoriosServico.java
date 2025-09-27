@@ -6,6 +6,7 @@ import Servicos.MedicoServico;
 import Servicos.PacienteServico;
 import entidades.consulta.Consulta;
 import entidades.internacao.Internacao;
+import entidades.pessoa.Medico;
 import entidades.pessoa.Paciente;
 import entidades.pessoa.PacienteEspecial;
 
@@ -95,5 +96,34 @@ public class RelatoriosServico {
             System.out.println("Nenhum paciente está internado no momento!");
             System.out.println("-----------------------------------------------------");
         }
+    }
+//medico que mais atendeu
+    public void relatorioMedicoMaisAtendeu(){
+        System.out.println("\n--- Médico mais Ativo(Estatística) ---");
+        List<Medico> medicos = medicoServico.ListarMedicos();
+        if (medicos.isEmpty()){
+            System.out.println("Nenhum médico cadastrado no sistema!");
+            System.out.println("------------------------------------");
+            return;
+        }
+        Medico medicoMaisOcupado = null;
+        int maxConsultas = 0;
+        for (Medico m: medicos){
+            int numConsultas = m.getAgenda().size();
+            if (numConsultas > maxConsultas){
+                maxConsultas = numConsultas;
+                medicoMaisOcupado = m;
+            }
+        }
+        System.out.println("-----------------------------");
+        if (medicoMaisOcupado != null){
+            System.out.printf(" Médico mais ativo: Dr(a). %s\n", medicoMaisOcupado.getNome());
+            System.out.printf(" CRM: %s\n",medicoMaisOcupado.getCRM());
+            System.out.printf(" Especialidade: %s\n", medicoMaisOcupado.getEspecialidade());
+            System.out.printf(" Total de consultas: %d\n",maxConsultas);
+        }else{
+            System.out.println("Nenhuma consulta foi registrada para nenhum médico");
+        }
+        System.out.println("-------------------------------------------");
     }
 }

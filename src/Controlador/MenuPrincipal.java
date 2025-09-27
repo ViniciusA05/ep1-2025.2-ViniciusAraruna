@@ -4,6 +4,7 @@ import Relatorios.RelatoriosServico;
 import Servicos.*;
 import entidades.plano.PlanoSaude;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -152,6 +153,49 @@ public class MenuPrincipal {
         planoSaudeServico.cadastrarPlano(nomePlano,descontoIdoso,isPlanoEspecial);
     }
     //menu e metodos de agendamento
+    private void menuAgendamentoInternacao(){
+        int opcao;
+        do {
+            System.out.println("\n--- Menu Agendamento e Internações ---");
+            System.out.println("1. Agendar Consulta");
+            System.out.println("2. Internar Paciente");
+            System.out.println("3. Dar alta a Paciente");
+            System.out.println("4. Voltar ao Menu Prinicipal");
+
+            if (scanner.hasNextInt()){
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+            }else{
+                System.out.println("Opção inválida!");
+                scanner.nextLine();
+                opcao = 0;
+            }
+            switch (opcao){
+                case 1: agendarConsulta(); break;
+                case 2: internarPaciente(); break;
+                case 3: darAltaPaciente(); break;
+                case 4: break;
+                default:
+                    System.out.println("Opção inválida!"); break;
+            }
+        } while (opcao != 4);
+    }
+// agendar a consutlta
+private void agendarConsulta(){
+    System.out.println("\n--- Agendamento de Consulta ---");
+    System.out.println("CPF do paciente: "); String pacienteCpf = scanner.nextLine();
+    System.out.println("CRM do médico: "); String medicoCrm = scanner.nextLine();
+    System.out.println("Data e hora (dd/MM/yyyy HH:mm): "); String dataHoraStr = scanner.nextLine();
+    System.out.println("Local da Consulta: "); String local = scanner.nextLine();
+
+    try{
+        LocalDateTime dataHora = LocalDateTime.parse(dataHoraStr, DATE_TIME_FORMATTER);
+        consultaServico.agendarConsulta(pacienteCpf,medicoCrm,dataHora,local);
+    }catch (Exception e){
+        System.err.println("Erro de formatação de data/hora. Use o formato dd/MM/yyyy HH:mm");
+    }
+}
+//internar o paciente
 
 }
 

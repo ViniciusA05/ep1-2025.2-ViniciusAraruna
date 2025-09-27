@@ -2,6 +2,7 @@ package Controlador;
 
 import Relatorios.RelatoriosServico;
 import Servicos.*;
+import entidades.internacao.Internacao;
 import entidades.plano.PlanoSaude;
 
 import java.time.LocalDateTime;
@@ -196,6 +197,29 @@ private void agendarConsulta(){
     }
 }
 //internar o paciente
+    private void internarPaciente(){
+        System.out.println("\n--- Internação do Paciente ---");
+        System.out.println("CPF do paciente: "); String pacienteCpf = scanner.nextLine();
+        System.out.println("CRM do médico responsável: "); String medicoCrm = scanner.nextLine();;
+        System.out.println("Número do Quarto: "); int numeroQuarto = scanner.nextInt();scanner.nextLine();
 
+        internacaoServico.internarPaciente(pacienteCpf,medicoCrm,numeroQuarto,LocalDateTime.now());
+    }
+//dar alta ao paciente
+    private void darAltaPaciente(){
+        System.out.println("\n--- Alta do Paciente ---");
+        System.out.println("CPF do paciente que receberá alta: ");String pacienteCpf = scanner.nextLine();
+        Internacao internacaoAtiva = internacaoServico.buscarInternacaoAtivaPorCpf(pacienteCpf);
+        if (internacaoAtiva == null){
+            System.err.println("Erro: Paciente não tem internacao ativa!");
+            return;
+        }
+        System.out.println("Custo base da diária de internação: ");
+        double custoBase = scanner.nextDouble();
+        scanner.nextLine();
+
+        internacaoServico.darAlta(internacaoAtiva,custoBase);
+        System.out.println("Alta realizada com sucesso!! Custo final calculado!");
+    }
 }
 

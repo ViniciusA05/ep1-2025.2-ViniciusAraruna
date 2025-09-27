@@ -29,14 +29,14 @@ public class MenuPrincipal {
         this.consultaServico = new ConsultaServico(medicoServico,pacienteServico);
         this.internacaoServico = new InternacaoServico(pacienteServico,medicoServico);
 
-        this.relatoriosServico = new RelatoriosServico(pacienteServico,medicoServico,internacaoServico);
+        this.relatoriosServico = new RelatoriosServico(pacienteServico,medicoServico,consultaServico,internacaoServico);
     }
     //loop do menu
     public void inicar(){
         int opcao;
         do {
             exibirMenuPrincipal();
-            // Lógica para garantir que o usuário digitou um número
+            // Lógica para garantir que o usuário digite um número
             if (scanner.hasNextInt()) {
                 opcao = scanner.nextInt();
                 scanner.nextLine();
@@ -241,7 +241,7 @@ private void agendarConsulta(){
             switch (opcao){
                 case 1: relatoriosServico.relatorioPacienteComHistorico();break;
                 case 2: relatoriosServico.relatorioPacientesInternado();break;
-                case 3: relatoriosServico.medicoMaisAtendeu();break;
+                case 3: relatoriosServico.relatorioMedicoMaisAtendeu();break;
                 case 4: break;
                 default:
                     System.out.println("Opção inválida!");

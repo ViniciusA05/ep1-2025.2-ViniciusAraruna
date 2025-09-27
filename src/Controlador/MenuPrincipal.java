@@ -143,5 +143,15 @@ public class MenuPrincipal {
         pacienteServico.cadastrarPacienteEspecial(nome,cpf,idade,plano);
     }
 //cadastrar plano de saude
+    private void cadastrarPlanoSaude(){
+        System.out.println("\n--- Cadastrar Plano de Saúde ---");
+        System.out.println("Nome do Plano: ");String nomePlano = scanner.nextLine();
+        System.out.println("Desconto para idosos (ex: 0.15 para 15%): "); double descontoIdoso = scanner.nextDouble();scanner.nextLine();
+        System.out.println("È um Plano Especial? (true/false): "); boolean isPlanoEspecial = scanner.nextBoolean();scanner.nextLine();
+
+        planoSaudeServico.cadastrarPlano(nomePlano,descontoIdoso,isPlanoEspecial);
+    }
+    //menu e metodos de agendamento
+
 }
 

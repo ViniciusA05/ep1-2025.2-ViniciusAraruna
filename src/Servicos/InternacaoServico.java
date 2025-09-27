@@ -71,4 +71,14 @@ public class InternacaoServico {
         return false;
     }
     public List<Internacao> listaInternacao(){ return this.internacoes; }
+//buscar internacao por cpf
+    public Internacao buscarInternacaoAtivaPorCpf(String pacienteCpf){
+        for (Internacao i : internacoes){
+            if (i.isInternacaoAtiva() && i.getPaciente().getCpf().equals(pacienteCpf)){
+                return i;
+            }
+        }
+        return null;
+    }
+
 }

@@ -17,7 +17,7 @@ public class InternacaoServico {
 
     public InternacaoServico(PacienteServico pacienteServico, MedicoServico medicoServico){
         this.repositorio = new InternacaoRepositorio();
-        this.internacoes = repositorio.carregarInterncoes();
+        this.internacoes = repositorio.carregarInternacoes();
         if(this.internacoes == null){
             this.internacoes = new ArrayList<>();
         }

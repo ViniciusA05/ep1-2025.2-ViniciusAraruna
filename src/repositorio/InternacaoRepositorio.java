@@ -38,7 +38,7 @@ public class InternacaoRepositorio {
     }
 
     //carregar as internacoes
-    public List<Internacao> carregarInterncoes(){
+    public List<Internacao> carregarInternacoes(){
         List<Internacao> internacoes = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(NOME_ARQUIVO))){
             String linha;

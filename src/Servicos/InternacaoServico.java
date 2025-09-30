@@ -33,7 +33,7 @@ public class InternacaoServico {
             System.err.println("Erro: Paciente ou Médico não encontrado no sistema ");
             return false;
         }
-        Internacao novaInternacao = new Internacao(pacienteCpf,medicoCrm,numeroQuarto,dataEntrada);
+        Internacao novaInternacao = new Internacao(paciente,medico,numeroQuarto,dataEntrada);
         this.internacoes.add(novaInternacao);
         paciente.adicionarInternacaoHistorico(novaInternacao);
         repositorio.salvarInternacao(this.internacoes);

@@ -3,8 +3,10 @@ package Servicos;
 import entidades.internacao.Internacao;
 import entidades.pessoa.Medico;
 import entidades.pessoa.Paciente;
+import entidades.pessoa.PacienteEspecial;
 import repositorio.InternacaoRepositorio;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +43,24 @@ public class InternacaoServico {
         return true;
     }
     //alta e custo da internacao
+
+
+    public boolean darAlta(Internacao internacao, double custoBase){
+        LocalDateTime dataSaida;
+        long diasInternado = Duration.between(internacao.getDataEntrada(), internacao.getDataSaida());
+        double custoFinal = custoBase;
+
+        if (internacao.getPaciente() instanceof PacienteEspecial){
+            PacienteEspecial pe = (PacienteEspecial) internacao.getPaciente();
+            if (pe.getPlanoSaude().isPlanoEspecial() && diasInternado < 7 ){
+                System.out.println("Desconto aplicado! Internação gratuita pelo plano de saude!");
+                custoFinal = 0.0;
+            }
+        }
+        internacao.darAlta(dataSaida, custoFinal);
+        repositorio.salvarInternacao(this.internacoes);
+        return true;
+    }
+    //verificar internacao ativa no quarto
 
 }

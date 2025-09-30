@@ -5,7 +5,6 @@ import entidades.pessoa.Medico;
 import entidades.pessoa.Paciente;
 import entidades.pessoa.PacienteEspecial;
 import repositorio.InternacaoRepositorio;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,8 +45,8 @@ public class InternacaoServico {
 
 
     public boolean darAlta(Internacao internacao, double custoBase){
-        LocalDateTime dataSaida;
-        long diasInternado = Duration.between(internacao.getDataEntrada(), internacao.getDataSaida());
+        LocalDateTime dataSaida = LocalDateTime.now();
+        long diasInternado = Duration.between(internacao.getDataEntrada(), dataSaida).toDays();
         double custoFinal = custoBase;
 
         if (internacao.getPaciente() instanceof PacienteEspecial){
@@ -63,4 +62,12 @@ public class InternacaoServico {
     }
     //verificar internacao ativa no quarto
 
+    private boolean verificarQuartoOcupado(int numeroQuarto){
+        for (Internacao i : internacoes){
+            if (i.isInternacaoAtiva() && i.getNumeroQuarto() == numeroQuarto){
+                return true;
+            }
+        }
+        return false;
+    }
 }

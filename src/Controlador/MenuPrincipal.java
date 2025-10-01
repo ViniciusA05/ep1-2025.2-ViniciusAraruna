@@ -107,5 +107,18 @@ public class MenuPrincipal {
             }
         }while (opcao!=5);
     }
+//cadastrar medico
+    private void cadastrarMedico(){
+        System.out.println("\n--- Cadastro de Médico ---");
+        System.out.println("Nome: "); String nome = scanner.nextLine();
+        System.out.println("CPF: "); String cpf = scanner.nextLine();
+        System.out.println("Idade: "); int idade = scanner.nextInt();scanner.nextLine();
+        System.out.println("CRM: "); String crm = scanner.nextLine();
+        System.out.println("Especialidade: "); String especialidade = scanner.nextLine();
+        System.out.println("Custo da Consulta: "); double custoConsulta = scanner.nextDouble();scanner.nextLine();
+        medicoServico.cadastrarMedicos(nome,cpf,idade,crm,especialidade,custoConsulta);
+        }
+    }
+//cadastrar paciente comum
 
 }

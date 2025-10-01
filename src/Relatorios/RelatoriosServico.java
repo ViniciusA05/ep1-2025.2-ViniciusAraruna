@@ -9,6 +9,8 @@ import entidades.internacao.Internacao;
 import entidades.pessoa.Paciente;
 import entidades.pessoa.PacienteEspecial;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -64,5 +66,34 @@ public class RelatoriosServico {
             }
         }
         System.out.println("");
+    }
+    //quais pacientes estao internados no momento
+    public void relatorioPacientesInternado(){
+        System.out.println("\n--- RELATÓRIO: PACIENTES INTERNADOS ATUALMENTE ---");
+        List<Internacao> todasInternacoes = internacaoServico.listaInternacao();
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
+        boolean encontrouAtivos = false;
+
+        System.out.println("-----------------------------------------------------");
+        for (Internacao i : todasInternacoes){
+            if(i.isInternacaoAtiva()){
+                encontrouAtivos = true;
+
+                Duration duracao = Duration.between(i.getDataEntrada(), LocalDateTime.now());
+                long horas = duracao.toHours();
+                long dias = horas/24;
+                horas = horas%24;//quanto tempo resta
+
+                System.out.printf(" Quarto: %d\n",i.getNumeroQuarto());
+                System.out.printf(" Paciente: %s(CPF: %s)\n",i.getPaciente().getNome(),i.getPaciente().getCpf());
+                System.out.printf(" Entrada: %s\n", i.getDataEntrada().format(formatter));
+                System.out.printf(" Tempo de internação: %d dias e %d horas\n",dias,horas);
+                System.out.println("-----------------------------------------------------");
+            }
+        }
+        if (!encontrouAtivos){
+            System.out.println("Nenhum paciente está internado no momento!");
+            System.out.println("-----------------------------------------------------");
+        }
     }
 }

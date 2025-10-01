@@ -2,6 +2,7 @@ package Controlador;
 
 import Relatorios.RelatoriosServico;
 import Servicos.*;
+import entidades.plano.PlanoSaude;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -127,6 +128,20 @@ public class MenuPrincipal {
         pacienteServico.cadastrarPacienteComum(nome,cpf,idade);
     }
 //cadastrar paciente especial
+    private void cadastrarPacienteEspecial(){
+        System.out.println("\n--- Cadastro Paciente Especial ---");
+        System.out.println("Nome: "); String nome = scanner.nextLine();
+        System.out.println("CPF: "); String cpf = scanner.nextLine();
+        System.out.println("Idade: "); int idade = scanner.nextInt();scanner.nextLine();
+        System.out.println("Nome do plano de saúde: "); String nomePlano = scanner.nextLine();
 
+        PlanoSaude plano = planoSaudeServico.buscarPlanoPorNome(nomePlano);
+        if (plano == null){
+            System.err.println("Erro: Plano de Saúde '" + nomePlano + "' não encontrado. Cadastre-o primeiro!");
+            return;
+        }
+        pacienteServico.cadastrarPacienteEspecial(nome,cpf,idade,plano);
+    }
+//cadastrar plano de saude
 }
 

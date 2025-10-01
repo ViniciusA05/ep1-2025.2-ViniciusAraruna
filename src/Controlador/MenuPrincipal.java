@@ -117,8 +117,16 @@ public class MenuPrincipal {
         System.out.println("Especialidade: "); String especialidade = scanner.nextLine();
         System.out.println("Custo da Consulta: "); double custoConsulta = scanner.nextDouble();scanner.nextLine();
         medicoServico.cadastrarMedicos(nome,cpf,idade,crm,especialidade,custoConsulta);
-        }
     }
 //cadastrar paciente comum
+    private void cadastrarPacienteComum(){
+        System.out.println("\n--- Cadastro Paciente Comum ---");
+        System.out.println("Nome: "); String nome = scanner.nextLine();
+        System.out.println("CPF: "); String cpf = scanner.nextLine();
+        System.out.println("Idade: "); int idade = scanner.nextInt();scanner.nextLine();
+        pacienteServico.cadastrarPacienteComum(nome,cpf,idade);
+    }
+//cadastrar paciente especial
 
 }
+

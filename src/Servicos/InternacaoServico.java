@@ -70,4 +70,5 @@ public class InternacaoServico {
         }
         return false;
     }
+    public List<Internacao> listaInternacao(){ return this.internacoes; }
 }

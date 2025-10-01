@@ -30,7 +30,7 @@ public class RelatoriosServico {
     public void relatorioPacienteComHistorico(){
         System.out.println("\n--- RELATÓRIO: PACIENTE E HISTÓRICO ---");
         List<Paciente> pacientes = pacienteServico.listarPacientes();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         if (pacientes.isEmpty()){
             System.out.println("Nenhum paciente cadastrado!");
             return;
@@ -71,7 +71,7 @@ public class RelatoriosServico {
     public void relatorioPacientesInternado(){
         System.out.println("\n--- RELATÓRIO: PACIENTES INTERNADOS ATUALMENTE ---");
         List<Internacao> todasInternacoes = internacaoServico.listaInternacao();
-        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
+        DateTimeFormatter formatter= DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         boolean encontrouAtivos = false;
 
         System.out.println("-----------------------------------------------------");

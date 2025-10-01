@@ -2,15 +2,16 @@ package Controlador;
 
 import Relatorios.RelatoriosServico;
 import Servicos.*;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class MenuPrincipal {
-    private ConsultaServico consultaServico;
-    private InternacaoServico internacaoServico;
     private MedicoServico medicoServico;
     private PacienteServico pacienteServico;
     private PlanoSaudeServico planoSaudeServico;
+    private ConsultaServico consultaServico;
+    private InternacaoServico internacaoServico;
     private RelatoriosServico relatoriosServico;
 
     private Scanner scanner;
@@ -21,55 +22,90 @@ public class MenuPrincipal {
         this.medicoServico = new MedicoServico();
         this.pacienteServico = new PacienteServico();
         this.planoSaudeServico = new PlanoSaudeServico();
+
         this.consultaServico = new ConsultaServico(medicoServico,pacienteServico);
         this.internacaoServico = new InternacaoServico(pacienteServico,medicoServico);
-        this.relatoriosServico = new RelatoriosServico(pacienteServico,medicoServico,consultaServico,internacaoServico);
+
+        this.relatoriosServico = new RelatoriosServico(pacienteServico,medicoServico,internacaoServico);
     }
-//loop do menu
-    public void iniciar(){
+    //loop do menu
+    public void inicar(){
         int opcao;
         do {
             exibirMenuPrincipal();
-                if (scanner.hasNextInt()){
-                    opcao = scanner.nextInt();
-                    scanner.nextLine();
-                }else{
-                    System.out.println("Opção inválida. Digite um número.");
-                    scanner.nextLine();
-                    opcao = 0;
-                }
-                switch (opcao){
-                    case 1:
-                        menuCadastro();
-                        break;
-                    case 2:
-                        menuAgendamentoInternacao();
-                        break;
-                    case 3:
-                        menuRelatorios();
-                        break;
-                    case 4:
-                        System.out.println("Encerrando o sistema. Dados salvos automaticamente.");
-                        break;
-                    default:
-                        if (opcao!= 4 ){
-                            System.out.println("Opção não reconhecida. Tente novamente!");
-                        }
-                        break;
-                }
+            // Lógica para garantir que o usuário digitou um número
+            if (scanner.hasNextInt()) {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                System.out.println("Opção inválida. Digite um número.");
+                scanner.nextLine();
+                opcao = 0;
             }
-            while (opcao != 4);
-        }
+
+            switch (opcao) {
+                case 1:
+                    menuCadastro();
+                    break;
+                case 2:
+                    menuAgendamentoInternacao();
+                    break;
+                case 3:
+                    menuRelatorios();
+                    break;
+                case 4:
+                    System.out.println("Encerrando o sistema. Dados salvos automaticamente.");
+                    break;
+                default:
+                    if (opcao != 4) {
+                        System.out.println("Opção não reconhecida. Tente novamente.");
+                    }
+                    break;
+            }
+        } while (opcao != 4);
     }
-//metodo para exibir o menu principal
-private void exibirMenuPrincipal(){
-    System.out.println("\n=================================");
-    System.out.println("  HOSPITAL POO - Menu Principal  ");
-    System.out.println("=================================");
-    System.out.println("1. Cadastros (Médicos, Pacientes e Planos)");
-    System.out.println("2. Agendamentos e Internações");
-    System.out.println("3. Relatórios");
-    System.out.println("4. Sair");
-    System.out.println("Escolha uma opção: ");
+    //menu principal exibir
+    private void exibirMenuPrincipal(){
+        System.out.println("\n=================================");
+        System.out.println("  HOSPITAL POO - Menu Principal  ");
+        System.out.println("=================================");
+        System.out.println("1. Cadastros (Médicos, Pacientes, Planos)");
+        System.out.println("2. Agendamentos e Internações");
+        System.out.println("3. Relatórios");
+        System.out.println("4. Sair");
+        System.out.println("Escolha uma opção: ");
+    }
+    //menu cadastro
+    private void menuCadastro(){
+        int opcao;
+        do {
+            System.out.println("\n--- Menu de Cadastros ---");
+            System.out.println("1. Cadastrar Médico");
+            System.out.println("2. Cadastrar Paciente Comum");
+            System.out.println("3. Cadastrar Paciente Especial");
+            System.out.println("4. Cadastrar Plano de Saúde");
+            System.out.println("5. Voltar ao Menu Principal");
+            System.out.println("Escolha uma opção: ");
+
+            if (scanner.hasNextInt()){
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+            }else{
+                System.out.println("Opção inválida!");
+                scanner.nextLine();
+                opcao = 0;
+            }
+            switch (opcao){
+                case 1: cadastrarMedico(); break;
+                case 2: cadastrarPacienteComum(); break;
+                case 3: cadastrarPacienteEspecial();break;
+                case 4: cadastrarPlanoSaude();break;
+                case 5: break;
+                default:
+                    System.out.println("Opção inválida!");
+                    break;
+            }
+        }while (opcao!=5);
+    }
+
 }
-//menu cadastro

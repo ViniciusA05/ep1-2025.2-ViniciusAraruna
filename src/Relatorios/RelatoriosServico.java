@@ -5,6 +5,7 @@ import Servicos.InternacaoServico;
 import Servicos.MedicoServico;
 import Servicos.PacienteServico;
 import entidades.consulta.Consulta;
+import entidades.internacao.Internacao;
 import entidades.pessoa.Paciente;
 import entidades.pessoa.PacienteEspecial;
 
@@ -34,7 +35,7 @@ public class RelatoriosServico {
         }
         for (Paciente p : pacientes){
             String tipo = (p instanceof PacienteEspecial) ? "Especial" : "Comum";
-            System.out.printf("\n Paciente: %s (CPF: %s , Tipo: %s)\n"), p.getNome() , p.getCpf(), tipo);
+            System.out.printf("\n Paciente: %s (CPF: %s , Tipo: %s)\n", p.getNome() , p.getCpf(), tipo);
 //historico de consultas
             List<Consulta> consultas = p.getHistoricoConsultas();
             System.out.println(" Histórico de Consultas: (" + consultas.size() + "): ");
@@ -48,6 +49,20 @@ public class RelatoriosServico {
                 }
             }
             //historico de internacoes
+
+            List<Internacao> internacoes = p.getHistoricoInternacoes();
+            System.out.println(" Histórico de Internações: (" + internacoes.size() + "): ");
+            if (internacoes.isEmpty()){
+                System.out.println(" Nenhuma internação registrada. ");
+            }else{
+                for (Internacao i : internacoes){
+                    String entrada = i.getDataEntrada().format(formatter);
+                    String saida = i.isInternacaoAtiva() ? "Internado (Ativa) " : i.getDataSaida().format(formatter);
+                    System.out.printf(" Quarto: %d \n Entrada: %s \n Saida: %s\n",
+                            i.getNumeroQuarto(), entrada,saida);
+                }
+            }
         }
+        System.out.println("");
     }
 }

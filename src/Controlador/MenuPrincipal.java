@@ -7,6 +7,7 @@ import entidades.plano.PlanoSaude;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MenuPrincipal {
@@ -21,7 +22,7 @@ public class MenuPrincipal {
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public MenuPrincipal(){
-        this.scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in).useLocale(Locale.US);
         this.medicoServico = new MedicoServico();
         this.pacienteServico = new PacienteServico();
         this.planoSaudeServico = new PlanoSaudeServico();

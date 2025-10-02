@@ -63,7 +63,7 @@ public class PlanoSaudeRepositorio {
             System.out.println("Planos de Saude carregados com sucesso!!");
         }
         catch (FileNotFoundException e){
-            System.err.println("Arquivo de Plano de Saude nao encontrado. Comecando com Lista vazia.");
+            System.err.println("Arquivo de Plano de Saude nao encontrado. Comecando com Lista vazia. " + e.getMessage());
         }
         catch (IOException e){
             System.err.println("Erro ao carregar planos de saude: " + e.getMessage());

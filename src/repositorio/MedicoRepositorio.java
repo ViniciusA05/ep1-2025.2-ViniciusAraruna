@@ -49,7 +49,7 @@ public class MedicoRepositorio {
             System.out.println("Médicos carregados com sucesso!!");
         }
         catch (FileNotFoundException e){
-            System.err.println("Arquivos de médicos nao encontrado. Começando com lista vazia");
+            System.err.println("Arquivos de médicos nao encontrado. Começando com lista vazia. " + e.getMessage());
         }
         catch (IOException e){
             System.err.println("Erro ao carregar médicos" + e.getMessage());

@@ -63,7 +63,7 @@ public class InternacaoRepositorio {
             System.out.println("Internações carregadas com sucesso!!");
         }
         catch (FileNotFoundException e){
-            System.err.println("Arquivo de internações não encontrado. Começando com lista vazia.");
+            System.err.println("Arquivo de internações não encontrado. Começando com lista vazia. " + e.getMessage());
         }
         catch (IOException | ArrayIndexOutOfBoundsException | NumberFormatException e){
             System.err.println("Erro ao carregar internações. Verifique o formato do arquivo.");

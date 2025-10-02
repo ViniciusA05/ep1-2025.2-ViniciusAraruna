@@ -65,7 +65,7 @@ public class PacienteRepositorio {
             System.out.println("Pacientes carregados com sucesso!!");
         }
         catch(FileNotFoundException e){
-            System.out.println("Arquivo de pacientes não encontrado. Começando com a lista vazia. ");
+            System.out.println("Arquivo de pacientes não encontrado. Começando com a lista vazia. " + e.getMessage());
         }
         catch (IOException e){
             System.err.println("Erro ao carregar pacientes" + e.getMessage());

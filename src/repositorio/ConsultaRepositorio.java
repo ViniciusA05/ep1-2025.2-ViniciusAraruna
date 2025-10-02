@@ -52,7 +52,7 @@ public class ConsultaRepositorio {
             System.out.println("Consultas carregadas com sucesso!!");
         }
         catch (FileNotFoundException e){
-            System.err.println("Arquivo não encontrado. Começando com lista vazia." + e.getMessage());
+            System.err.println("Arquivo não encontrado. Começando com lista vazia. " + e.getMessage());
         }
         catch (IOException | ArrayIndexOutOfBoundsException | NumberFormatException e){
             System.err.println("Erro ao carregar consultas. Verifique o formato do arquivo.");

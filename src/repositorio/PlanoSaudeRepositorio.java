@@ -19,9 +19,9 @@ public class PlanoSaudeRepositorio {
                         plano.getDescontoIdoso(),
                         plano.isPlanoEspecial()
                         );
-                if(!plano.getDescontoParaEspecialidade().isEmpty()){
-                    linha+= "Descontos;";
-                    for (Map.Entry<String, Double> entry: plano.getDescontosEspecialidade().entrySet()){
+                if (!plano.getDescontosEspecialidade().isEmpty()){
+                    linha += ";Descontos:";
+                    for (Map.Entry<String,Double> entry: plano.getDescontosEspecialidade().entrySet()){
                         linha+= entry.getKey() + "-" + entry.getValue() + ",";
                     }
                     linha = linha.substring(0,linha.length() -1);

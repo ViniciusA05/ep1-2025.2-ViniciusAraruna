@@ -21,12 +21,12 @@ public class PacienteRepositorio {
                         paciente.getIdade());
                 if(paciente instanceof PacienteEspecial){
                     PacienteEspecial pe = (PacienteEspecial) paciente;
-                    linha += String.format("Tipo: Especial;Plano de Saúde: %s",
+                    linha += String.format(";Tipo: Especial;Plano de Saúde: %s",
                     pe.getPlanoSaude().getNomePlano()
                             );
                 }
                 else {
-                    linha+="Tipo: Comum;";
+                    linha+=";Tipo: Comum;";
                 }
                 writer.write(linha);
                 writer.newLine();

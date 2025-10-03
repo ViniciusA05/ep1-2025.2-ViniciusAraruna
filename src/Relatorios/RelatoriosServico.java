@@ -144,5 +144,23 @@ public class RelatoriosServico {
         }
         System.out.println("------------------------------------");
     }
-
+    //lista de consulta futuras ou passadas
+    public void relatorioConsultasStatus(String status){
+        System.out.println("\n--- Relatório de Consultas ---");
+        List<Consulta> consultas = consultaServico.buscarConsultaStatus(status);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        if (consultas.isEmpty()){
+            System.out.printf("Nenhuma consulta com status '%s' encontrada.\n",status);
+            System.out.println("-------------------------------------------");
+            return;
+        }
+        for (Consulta c: consultas){
+            System.out.println("-------------------------------------------");
+            System.out.printf(" Data: %s \n",c.getDataHora().format(formatter));
+            System.out.printf(" Paciente: %s\n (CPF: %s)\n",c.getPaciente().getNome(),c.getPaciente().getCpf());
+            System.out.printf(" Médico: Dr(a). %s\n",c.getMedico().getNome());
+            System.out.printf(" Custo final: %.2f\n",c.getCustoConsulta());
+        }
+        System.out.println("--------------------------------------------");
+    }
 }

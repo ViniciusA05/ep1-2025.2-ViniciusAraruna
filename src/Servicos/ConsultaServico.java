@@ -55,6 +55,29 @@ public class ConsultaServico {
         }
         return false;
     }
+//encontrar uma consulta por medico e data
+    private Consulta buscarConsultaPorMedicoeData(String medicoCrm , LocalDateTime dataHora){
+        for (Consulta c: consultas){
+            if (c.getMedico().getCRM().equals(medicoCrm) && c.getDataHora().isEqual(dataHora) && c.getStatus().equalsIgnoreCase("Agendada"));{
+                return c;
+            }
+        }
+        return null;
+    }
+    //concluir consulta, adicionando prescricao e diagnostico, atualizando o status
+    public boolean concluirConsulta(String medicoCrm, LocalDateTime dataHora, String diagnostico, String prescricao){
+        Consulta consulta = buscarConsultaPorMedicoeData(medicoCrm,dataHora);
+        if (consulta == null){
+            System.err.println("Erro: Consulta não encontrada ou já concluida/cancelada.");
+            return false;
+        }
+        consulta.setDiagnostico(diagnostico);
+        consulta.setPrescricaoMedicamentos(prescricao);
+        consulta.setStatus("Concluída!");
 
+        repositorio.salvarConsultas(this.consultas);
+        System.out.println("Consulta concluida e diagnóstico registrado com sucesso!");
+        return true;
+    }
 
 }

@@ -126,4 +126,23 @@ public class RelatoriosServico {
         }
         System.out.println("-------------------------------------------");
     }
+//relatorio de medicos
+    public void relatorioListarMedicos(){
+        System.out.println("--- Lista de Médicos ---");
+        List<Medico> medicos = medicoServico.ListarMedicos();
+        if(medicos.isEmpty()){
+            System.out.println("Nenhum médico cadastrado no sistema!");
+            System.out.println("------------------------------------");
+            return;
+        }
+        for (Medico m : medicos){
+            System.out.println("------------------------------------");
+            System.out.printf(" Nome: Dr(a). %s\n",m.getNome());
+            System.out.printf(" CRM: %s\n", m.getCRM());
+            System.out.printf(" Especialidade: %s\n", m.getEspecialidade());
+            System.out.printf(" Consultas na agenda: %d\n", m.getAgenda().size());
+        }
+        System.out.println("------------------------------------");
+    }
+
 }

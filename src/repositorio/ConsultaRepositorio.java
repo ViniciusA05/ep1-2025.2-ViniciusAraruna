@@ -3,6 +3,7 @@ package repositorio;
 import entidades.consulta.Consulta;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,3 +61,4 @@ public class ConsultaRepositorio {
         return consultas;
     }
 }
+

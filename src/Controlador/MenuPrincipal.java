@@ -148,11 +148,33 @@ public class MenuPrincipal {
 //cadastrar plano de saude
     private void cadastrarPlanoSaude(){
         System.out.println("\n--- Cadastrar Plano de Saúde ---");
-        System.out.println("Nome do Plano: ");String nomePlano = scanner.nextLine();
-        System.out.println("Desconto para idosos (ex: 0.15 para 15%): "); double descontoIdoso = scanner.nextDouble();scanner.nextLine();
-        System.out.println("È um Plano Especial? (true/false): "); boolean isPlanoEspecial = scanner.nextBoolean();scanner.nextLine();
+        System.out.println("Nome do Plano: ");String nomePlano = scanner.nextLine().trim();
+        System.out.println("Desconto para idosos (ex: 0.15 para 15%): "); String descontoStr = scanner.nextLine().trim();
+        System.out.println("È um Plano Especial? (1- Sim ; 2- Não): ");
+        double descontoIdoso = 0.0;
+        boolean isPlanoEspecial = false;
+        int planoEspecialInt;
+        try{
+            if (scanner.hasNextInt()){
+                planoEspecialInt = scanner.nextInt();
+            }else{
+                throw new NumberFormatException("Opção de plano deve ser um número!(1 ou 2)");
+            }
+            scanner.nextLine();
+            descontoIdoso = Double.parseDouble(descontoStr);
+            isPlanoEspecial = (planoEspecialInt == 1);
+
+        }catch (NumberFormatException e){
+            System.err.println("Erro: O valor do desconto deve ser um número válido(use o ponto decimal). Operação cancelada!");
+            return;
+        }
+        if(planoEspecialInt != 1 && planoEspecialInt != 2){
+            System.err.println("Erro: Opção de plano especial deve ser 1 ou 2. ");
+            return;
+        }
 
         planoSaudeServico.cadastrarPlano(nomePlano,descontoIdoso,isPlanoEspecial);
+        System.out.println("Plano de Saúde " + nomePlano + "cadastrado com sucesso!");
     }
     //menu e metodos de agendamento
     private void menuAgendamentoInternacao(){
@@ -176,13 +198,31 @@ public class MenuPrincipal {
                 case 1: agendarConsulta(); break;
                 case 2: internarPaciente(); break;
                 case 3: darAltaPaciente(); break;
-                case 4: break;
+                case 4: concluirConsultaUI(); break;
+                case 5: break;
                 default:
                     System.out.println("Opção inválida!"); break;
             }
-        } while (opcao != 4);
+        } while (opcao != 5);
     }
-// agendar a consutlta
+    private void concluirConsultaUI(){
+        System.out.println("\n--- Concluir consulta E Registro de Diagnóstico ---");
+        System.out.print("CRM do Médico: ");
+        String medicoCrm = scanner.nextLine().trim();
+        System.out.print("Data e Hora da Consulta (dd/MM/yyyy HH:mm): ");
+        String dataHoraStr = scanner.nextLine().trim();
+        System.out.print("Diagnóstico: ");
+        String diagnostico = scanner.nextLine().trim();
+        System.out.print("Prescrição de Medicamentos: ");
+        String prescricao = scanner.nextLine().trim();
+        try {
+            LocalDateTime dataHora = LocalDateTime.parse(dataHoraStr, DATE_TIME_FORMATTER);
+            consultaServico.concluirConsulta(medicoCrm,dataHora,diagnostico,prescricao);
+        }catch (Exception e){
+            System.err.println("Erro: Verifique o formato da data/hora(dd/MM/yyyy HH:mm)!");
+        }
+    }
+// agendar a consulta
 private void agendarConsulta(){
     System.out.println("\n--- Agendamento de Consulta ---");
     System.out.println("CPF do paciente: "); String pacienteCpf = scanner.nextLine();
@@ -230,7 +270,8 @@ private void agendarConsulta(){
             System.out.println("1. Histórico completo dos pacientes ");
             System.out.println("2. Pacientes internados atualmente ");
             System.out.println("3. Médico que mais atendeu ");
-            System.out.println("4. Voltar ao Menu Principal");
+            System.out.println("4. Lista completa de Médicos");
+            System.out.println("5. Voltar ao Menu Principal");
             if (scanner.hasNextInt()){
                 opcao = scanner.nextInt();
                 scanner.nextLine();
@@ -243,7 +284,8 @@ private void agendarConsulta(){
                 case 1: relatoriosServico.relatorioPacienteComHistorico();break;
                 case 2: relatoriosServico.relatorioPacientesInternado();break;
                 case 3: relatoriosServico.relatorioMedicoMaisAtendeu();break;
-                case 4: break;
+                case 4: relatoriosServico.relatorioListarMedicos();break;
+                case 5: break;
                 default:
                     System.out.println("Opção inválida!");
             }

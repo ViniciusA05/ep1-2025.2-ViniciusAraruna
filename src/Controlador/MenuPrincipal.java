@@ -285,11 +285,39 @@ private void agendarConsulta(){
                 case 2: relatoriosServico.relatorioPacientesInternado();break;
                 case 3: relatoriosServico.relatorioMedicoMaisAtendeu();break;
                 case 4: relatoriosServico.relatorioListarMedicos();break;
-                case 5: break;
+                case 5: relatorioConsultasPorStatusUI();break;
+                case 6: relatoriosServico.relatorioEstatisticoPlanoSaude();break;
+                case 7: break;
                 default:
                     System.out.println("Opção inválida!");
             }
-        }while (opcao != 4);
+        }while (opcao != 7);
     }
+    private void relatorioConsultasPorStatusUI(){
+        System.out.println("\n--- Filtro de Consultas ---");
+        System.out.println("1. Consultas agendadas(futuras)");
+        System.out.println("2. Consultas Concluidas(passadas)");
+        System.out.println("Escolha o tipo de consulta: ");
+        int opcao;
+        if (scanner.hasNextInt()){
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+        }else{
+            scanner.nextLine();
+            System.err.println("Opção inválida!");
+            return;
+        }
+        String status = "";
+        if (opcao == 1){
+            status = "Agendada";
+        }else if (opcao == 2){
+            status = "Concluida";
+        }else {
+            System.err.println("Opção não reconhecida!");
+            return;
+        }
+        relatoriosServico.relatorioConsultasStatus(status);
+    }
+
 }
 

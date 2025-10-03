@@ -104,5 +104,15 @@ public class ConsultaServico {
         if (descontoTotal > 1.0) descontoTotal = 1.0;
         return custoBase * (1.0 - descontoTotal);
     }
+    //busca consulta pelo status
+    public List<Consulta> buscarConsultaStatus(String status){
+        List<Consulta> listaFiltrada = new ArrayList<>();
+        for (Consulta c: consultas){
+            if (c.getStatus().equalsIgnoreCase(status)){
+                listaFiltrada.add(c);
+            }
+        }
+        return listaFiltrada;
+    }
 
 }

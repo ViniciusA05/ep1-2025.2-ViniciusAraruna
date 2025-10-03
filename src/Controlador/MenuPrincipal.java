@@ -17,6 +17,13 @@ public class MenuPrincipal {
     private ConsultaServico consultaServico;
     private InternacaoServico internacaoServico;
     private RelatoriosServico relatoriosServico;
+    //deixar o menu visual primário mais bonito
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_CYAN_LIGHT = "\u001B[96m";  //Ciano
+    public static final String ANSI_WHITE = "\u001B[97m";      // Branco/Cinza
+    public static final String ANSI_BLUE = "\u001B[34m";       // voltar ao padrao para a cor nao continuar
+    public static final String ANSI_YELLOW = "\u001B[33m"; // amarelo para sair
+
 
     private Scanner scanner;
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -70,14 +77,14 @@ public class MenuPrincipal {
     }
     //menu principal exibir
     private void exibirMenuPrincipal(){
-        System.out.println("\n=================================");
-        System.out.println("  HOSPITAL POO - Menu Principal  ");
-        System.out.println("=================================");
-        System.out.println("1. Cadastros (Médicos, Pacientes, Planos)");
-        System.out.println("2. Agendamentos e Internações");
-        System.out.println("3. Relatórios");
-        System.out.println("4. Sair");
-        System.out.println("Escolha uma opção: ");
+        System.out.println(ANSI_CYAN_LIGHT + "\n=================================");
+        System.out.println("  HOSPITAL POO - Menu Principal  " + ANSI_RESET);
+        System.out.println(ANSI_CYAN_LIGHT + "=================================");
+        System.out.println(ANSI_WHITE + "1. Cadastros (Médicos, Pacientes, Planos)" + ANSI_RESET);
+        System.out.println(ANSI_WHITE + "2. Agendamentos e Internações" + ANSI_RESET);
+        System.out.println(ANSI_WHITE + "3. Relatórios" + ANSI_RESET);
+        System.out.println(ANSI_YELLOW + "4. Sair" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "Escolha uma opção: " + ANSI_RESET);
     }
     //menu cadastro
     private void menuCadastro(){

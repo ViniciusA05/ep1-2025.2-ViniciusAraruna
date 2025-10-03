@@ -7,11 +7,11 @@ public class PlanoSaude {
     private String nomePlano;
     private Map<String, Double> descontosEspecialidade;
     private Double descontoIdoso;
-    private boolean ePlanoEspecial;
+    private boolean isPlanoEspecial;
 
     public PlanoSaude (String nomePlano, double descontoIdoso, boolean isPlanoEspecial){
         this.nomePlano = nomePlano;
-        this.ePlanoEspecial = isPlanoEspecial;
+        this.isPlanoEspecial = isPlanoEspecial;
         this.descontoIdoso = descontoIdoso;
         this.descontosEspecialidade = new HashMap<>();
     }
@@ -29,7 +29,7 @@ public class PlanoSaude {
     }
 
     public boolean isPlanoEspecial() {
-        return isPlanoEspecial();
+        return isPlanoEspecial;
     }
     public void adicionarDescontoEspecialidade(String especialidade, double percentual){
         this.descontosEspecialidade.put(especialidade, percentual);

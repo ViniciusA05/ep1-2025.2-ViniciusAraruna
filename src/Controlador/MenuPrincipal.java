@@ -41,6 +41,12 @@ public class MenuPrincipal {
     }
     //loop do menu
     public void inicar(){
+        //para exibir as mensagens de carregamento de repositorios no lugar correto
+        System.out.println("\n\n"); // Mais espaço para afastar
+        System.out.println(ANSI_CYAN_LIGHT + "=============================================");
+        System.out.println("--- STATUS DE INICIALIZAÇÃO CONCLUÍDO ---" + ANSI_RESET);
+        System.out.println(ANSI_CYAN_LIGHT + "=============================================" + ANSI_RESET);
+
         int opcao;
         do {
             exibirMenuPrincipal();

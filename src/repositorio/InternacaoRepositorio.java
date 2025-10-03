@@ -30,6 +30,7 @@ public class InternacaoRepositorio {
                 writer.write(linha);
                 writer.newLine();
             }
+            System.out.println("Internações salvas com sucesso!");
         } catch (IOException e) {
             System.err.println("Erro ao salvar internações: " + e.getMessage());
         }

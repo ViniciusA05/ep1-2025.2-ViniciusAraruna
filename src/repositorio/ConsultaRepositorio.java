@@ -20,12 +20,15 @@ public class ConsultaRepositorio {
                         consulta.getLocal(),
                         consulta.getCustoConsulta(),
                         consulta.getPaciente().getCpf(),
-                        consulta.getMedico().getCRM()
+                        consulta.getMedico().getCRM(),
+                        consulta.getStatus(),
+                        consulta.getDiagnostico(),
+                        consulta.getPrescricaoMedicamentos()
                 );
                 writer.write(linha);
                 writer.newLine();
             }
-            System.out.println("Consultas salvas em formato CSV!");
+            System.out.println("Consultas salvas com sucesso!");
         } catch (IOException e) {
             System.err.println("Erro ao salvar consultas: " + e.getMessage());
         }
@@ -45,9 +48,15 @@ public class ConsultaRepositorio {
                     LocalDateTime dataHora = LocalDateTime.parse(dados[0].split(":")[1].trim());
                     String local = dados[1].split(":")[1].trim();
                     double custo = Double.parseDouble(dados[2].split(":")[1].trim());
+                    String status = dados[5].split(":")[1].trim();
+                    String diagnostico = dados[6].split(":")[1].trim();
+                    String prescricao = dados[7].split(":")[1].trim();
 
                     Consulta consulta = new Consulta(null, null, dataHora, local);
                     consulta.setCustoConsulta(custo);
+                    consulta.setStatus(status);
+                    consulta.setDiagnostico(diagnostico);
+                    consulta.setPrescricaoMedicamentos(prescricao);
 
                     consultas.add(consulta);
                 } catch (Exception e) {

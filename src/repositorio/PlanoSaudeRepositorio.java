@@ -31,6 +31,7 @@ public class PlanoSaudeRepositorio {
                 writer.write(linha);
                 writer.newLine();
             }
+            System.out.println("Plano de Saúde salvo com sucesso!");
         } catch (IOException e) {
             System.err.println("Erro ao salvar planos de saúde: " + e.getMessage());
         }

@@ -33,6 +33,7 @@ public class PacienteRepositorio {
                 writer.write(linha);
                 writer.newLine();
             }
+            System.out.println("Paciente salvos com sucesso!");
         } catch (IOException e) {
             System.err.println("Erro ao salvar pacientes: " + e.getMessage());
         }

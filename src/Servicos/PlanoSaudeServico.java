@@ -12,7 +12,7 @@ public class PlanoSaudeServico {
 
     public PlanoSaudeServico(){
         this.repositorio = new PlanoSaudeRepositorio();
-        this.planos = repositorio.carregarPlanoSaude();
+        this.planos = repositorio.carregarPlanosSaude();
         if (this.planos == null){
             this.planos = new ArrayList<>();
         }
@@ -26,7 +26,7 @@ public class PlanoSaudeServico {
         }
         PlanoSaude novoPlano = new PlanoSaude(nomePlano,descontoIdoso,ePlanoEspecial);
         this.planos.add(novoPlano);
-        repositorio.salvarPlanoSaude(this.planos);
+        repositorio.salvarPlanosSaude(this.planos);
         System.out.println("Plano de Saúde '" + nomePlano +"' cadastrado com sucesso!!");
     }
     //metodo de buscar plano

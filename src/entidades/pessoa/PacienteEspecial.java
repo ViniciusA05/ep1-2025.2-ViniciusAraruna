@@ -13,9 +13,4 @@ public class PacienteEspecial extends Paciente {
 
         return planoSaude;
     }
-    public void setPlanoSaude(PlanoSaude planoSaude){
-
-        this.planoSaude = planoSaude;
-    }
-
 }

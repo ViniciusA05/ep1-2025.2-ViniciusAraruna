@@ -96,13 +96,13 @@ public class MenuPrincipal {
     private void menuCadastro(){
         int opcao;
         do {
-            System.out.println("\n--- Menu de Cadastros ---");
-            System.out.println("1. Cadastrar Médico");
-            System.out.println("2. Cadastrar Paciente Comum");
-            System.out.println("3. Cadastrar Paciente Especial");
-            System.out.println("4. Cadastrar Plano de Saúde");
-            System.out.println("5. Voltar ao Menu Principal");
-            System.out.println("Escolha uma opção: ");
+            System.out.println( ANSI_CYAN_LIGHT +"\n--- Menu de Cadastros ---" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "1. Cadastrar Médico" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "2. Cadastrar Paciente Comum" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "3. Cadastrar Paciente Especial" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "4. Cadastrar Plano de Saúde" + ANSI_RESET);
+            System.out.println( ANSI_YELLOW +"5. Voltar ao Menu Principal" + ANSI_RESET);
+            System.out.println( ANSI_BLUE + "Escolha uma opção: " + ANSI_RESET);
 
             if (scanner.hasNextInt()){
                 opcao = scanner.nextInt();
@@ -193,11 +193,13 @@ public class MenuPrincipal {
     private void menuAgendamentoInternacao(){
         int opcao;
         do {
-            System.out.println("\n--- Menu Agendamento e Internações ---");
-            System.out.println("1. Agendar Consulta");
-            System.out.println("2. Internar Paciente");
-            System.out.println("3. Dar alta a Paciente");
-            System.out.println("4. Voltar ao Menu Prinicipal");
+            System.out.println( ANSI_CYAN_LIGHT +"\n--- Menu Agendamento e Internações ---" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "1. Agendar Consulta"+ ANSI_RESET);
+            System.out.println(ANSI_WHITE + "2. Internar Paciente"+ ANSI_RESET);
+            System.out.println(ANSI_WHITE + "3. Dar alta a Paciente"+ ANSI_RESET);
+            System.out.println(ANSI_WHITE + "4. Concluir consulta e registrar diagnóstico"+ ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "5. Voltar ao Menu Prinicipal"+ ANSI_RESET);
+            System.out.println(ANSI_BLUE + "Escolha uma opção: "+ ANSI_RESET);
 
             if (scanner.hasNextInt()){
                 opcao = scanner.nextInt();
@@ -279,12 +281,15 @@ private void agendarConsulta(){
     private void menuRelatorios(){
         int opcao;
         do {
-            System.out.println("\n--- Menu de Relatórios ---");
-            System.out.println("1. Histórico completo dos pacientes ");
-            System.out.println("2. Pacientes internados atualmente ");
-            System.out.println("3. Médico que mais atendeu ");
-            System.out.println("4. Lista completa de Médicos");
-            System.out.println("5. Voltar ao Menu Principal");
+            System.out.println(ANSI_CYAN_LIGHT +"\n--- Menu de Relatórios ---" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "1. Histórico completo dos pacientes " + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "2. Pacientes internados atualmente " + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "3. Médico que mais atendeu " + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "4. Lista completa de Médicos" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "5. Consultas por Status(futuras e passadas)" + ANSI_RESET);
+            System.out.println(ANSI_WHITE + "6. Estatística Plano de Saúde" + ANSI_RESET);
+            System.out.println(ANSI_YELLOW + "7. Voltar ao Menu Principal" + ANSI_RESET);
+            System.out.println(ANSI_BLUE +"Escolha uma opção: "+ ANSI_RESET);
             if (scanner.hasNextInt()){
                 opcao = scanner.nextInt();
                 scanner.nextLine();

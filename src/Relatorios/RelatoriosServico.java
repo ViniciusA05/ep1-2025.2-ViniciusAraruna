@@ -13,7 +13,9 @@ import entidades.pessoa.PacienteEspecial;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RelatoriosServico {
     private ConsultaServico consultaServico;
@@ -163,4 +165,37 @@ public class RelatoriosServico {
         }
         System.out.println("--------------------------------------------");
     }
+    //relatorio quantidade de usuarios no plano e quanto aquele plano economizou
+    public void relatorioEstatisticoPlanoSaude(){
+        System.out.println("\n--- Estatística Plano de Saude ---");
+        Map<String,Double[]> estatisticas =new HashMap<>();
+        for (Consulta c : consultaServico.listaConsultas()){
+            if (c.getPaciente() instanceof PacienteEspecial) {
+                PacienteEspecial pe = (PacienteEspecial) c.getPaciente();
+                String nomePlano = pe.getPlanoSaude().getNomePlano();
+
+                double custoBaseMedico = c.getMedico().getCustoConsulta();
+                double custoFinalPago = c.getCustoConsulta();
+                double economiaDaConsulta = custoBaseMedico - custoFinalPago;
+
+                estatisticas.putIfAbsent(nomePlano, new Double[]{0.0,0.0});
+                Double[] dadosAtuais = estatisticas.get(nomePlano);
+                dadosAtuais[0] = dadosAtuais[0] + 1;
+                dadosAtuais[1] += economiaDaConsulta;
+            }
+        }
+        System.out.println("---------------------------------------");
+        for (Map.Entry<String, Double[]> entry : estatisticas.entrySet()){
+            Double[] dados = entry.getValue();
+            System.out.printf(" Plano: %s\n", entry.getKey());
+            System.out.printf(" Total de Consultas: %.0f\n", dados[0]);
+            System.out.printf(" Economia Total: R$ %.2f\n", dados[1]);
+            System.out.println("-----------------------------------");
+        }
+        if (estatisticas.isEmpty()){
+            System.out.println("Nenhuma consulta de paciente especial foi registrada!");
+            System.out.println("-----------------------------------------------------");
+        }
+    }
+
 }

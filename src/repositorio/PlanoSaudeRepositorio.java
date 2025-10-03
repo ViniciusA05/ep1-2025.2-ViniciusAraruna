@@ -14,7 +14,7 @@ public class PlanoSaudeRepositorio {
     public void salvarPlanoSaude(List<PlanoSaude> planos ){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO))){
             for(PlanoSaude plano : planos){
-                String linha = String.format("NomePlano: %s;DescontoIdoso: %.2f;Plano especial: %b",
+                String linha = String.format("NomePlano:%s;DescontoIdoso:%.2f;Plano especial:%b",
                         plano.getNomePlano(),
                         plano.getDescontoIdoso(),
                         plano.isPlanoEspecial()

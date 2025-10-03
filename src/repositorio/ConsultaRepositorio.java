@@ -15,7 +15,7 @@ public class ConsultaRepositorio {
     public void salvarConsultas(List<Consulta> consultas){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO))){
             for(Consulta consulta : consultas){
-                String linha = String.format("DataHora: %s;Local: %s; Custo: %.2f;PacienteCPF: %s;MedicoCRM: %s",
+                String linha = String.format("DataHora:%s;Local:%s; Custo:%.2f;PacienteCPF:%s;MedicoCRM:%s",
                         consulta.getDataHora().toString(),
                         consulta.getLocal(),
                         consulta.getCustoConsulta(),

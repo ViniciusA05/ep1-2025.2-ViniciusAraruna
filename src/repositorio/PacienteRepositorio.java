@@ -15,7 +15,7 @@ public class PacienteRepositorio {
     public void salvarPacientes(List<Paciente> pacientes){
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO))){
             for (Paciente paciente : pacientes){
-                String linha = String.format("Nome: %s; Cpf: %s; Idade: %d",
+                String linha = String.format("Nome:%s; Cpf:%s; Idade:%d",
                         paciente.getNome(),
                         paciente.getCpf(),
                         paciente.getIdade());

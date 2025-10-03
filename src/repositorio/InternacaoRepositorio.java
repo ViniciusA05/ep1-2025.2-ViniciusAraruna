@@ -18,7 +18,7 @@ public class InternacaoRepositorio {
             for (Internacao internacao : internacoes){
                 String dataSaidaStr = internacao.getDataSaida() != null ? internacao.getDataSaida().toString() : "null";
 
-                String linha = String.format("Quarto: %d;Entrada: %s;Saida: %s;Custo: %.2f;Ativa: %b;PacienteCPF: %s; MedicoCRM: %s",
+                String linha = String.format("Quarto:%d;Entrada:%s;Saida:%s;Custo:%.2f;Ativa:%b;PacienteCPF:%s; MedicoCRM:%s",
                         internacao.getNumeroQuarto(),
                         internacao.getDataEntrada().toString(),
                         dataSaidaStr,

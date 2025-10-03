@@ -14,7 +14,7 @@ public class MedicoRepositorio {
     public void salvarMedicos(List<Medico> medicos) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOME_ARQUIVO))) {
             for (Medico medico : medicos) {
-                String linha = String.format("Nome: %s;CPF: %s;Idade: %d;CRM: %s;Especialidade: %s;Custo da Consulta: %.2f",
+                String linha = String.format("Nome:%s;CPF:%s;Idade:%d;CRM:%s;Especialidade:%s;Custo da Consulta:%.2f",
                         medico.getNome(),
                         medico.getCpf(),
                         medico.getIdade(),
@@ -37,14 +37,20 @@ public class MedicoRepositorio {
         try(BufferedReader reader = new BufferedReader(new FileReader(NOME_ARQUIVO))){
             String linha;
             while ((linha = reader.readLine()) != null){
-                String[] dados = linha.split(";");
-                String nome = dados[0].split(":")[1];
-                String cpf = dados[1].split(":")[1];
-                int idade = Integer.parseInt(dados[2].split(":")[1]);
-                String crm = dados[3].split(":")[1];
-                String especialidade = dados[4].split(":")[1];
-                double custoConsulta = Double.parseDouble(dados[5].split(":")[1]);
+                try {
+                    String[] dados = linha.split(";");
+                    String nome = dados[0].split(":")[1];
+                    String cpf = dados[1].split(":")[1];
+                    int idade = Integer.parseInt(dados[2].split(":")[1]);
+                    String crm = dados[3].split(":")[1];
+                    String especialidade = dados[4].split(":")[1];
+                    double custoConsulta = Double.parseDouble(dados[5].split(":")[1]);
 
+                    Medico medico = new Medico(nome,cpf,idade,crm,especialidade,custoConsulta);
+                    medicos.add(medico);
+                }catch (NumberFormatException | ArrayIndexOutOfBoundsException lineException){
+                    System.err.println("Aviso: Linha de dados corrompida ignorada no arquivo de médicos.");
+                }
             }
             System.out.println("Médicos carregados com sucesso!!");
         }

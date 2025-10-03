@@ -3,6 +3,7 @@ package Servicos;
 import entidades.consulta.Consulta;
 import entidades.pessoa.Medico;
 import entidades.pessoa.Paciente;
+import entidades.pessoa.PacienteEspecial;
 import repositorio.ConsultaRepositorio;
 
 import java.time.LocalDateTime;
@@ -39,10 +40,15 @@ public class ConsultaServico {
         }
         //nova consulta
         Consulta novaConsulta = new Consulta(paciente, medico, dataHora, local);
+        double custoFinal = calcularCustoComDesconto(medico,paciente);
+        novaConsulta.setCustoConsulta(custoFinal);
         this.consultas.add(novaConsulta);
+
         paciente.adicionarConsultaHistorico(novaConsulta);
         medico.adicionarConsulta(novaConsulta);
+
         repositorio.salvarConsultas(this.consultas);
+
         System.out.println("Consulta agendada com sucesso, com o Dr. " + medico.getNome());
         return true;
     }
@@ -81,6 +87,22 @@ public class ConsultaServico {
     }
     public List<Consulta> listaConsultas(){
         return this.consultas;
+    }
+    //calcular custo com descontos
+    private double calcularCustoComDesconto(Medico medico, Paciente paciente) {
+        double custoBase = medico.getCustoConsulta();
+        double descontoTotal = 0.0;
+            if (paciente instanceof PacienteEspecial) {
+                PacienteEspecial pe = (PacienteEspecial) paciente;
+                if (paciente.eIdoso()) {
+                    descontoTotal = pe.getPlanoSaude().getDescontoIdoso();
+                } else {
+                    double descontoEspec = pe.getPlanoSaude().getDescontoParaEspecialidade(medico.getEspecialidade());
+                    descontoTotal = descontoEspec;
+                }
+            }
+        if (descontoTotal > 1.0) descontoTotal = 1.0;
+        return custoBase * (1.0 - descontoTotal);
     }
 
 }

@@ -79,5 +79,8 @@ public class ConsultaServico {
         System.out.println("Consulta concluida e diagnóstico registrado com sucesso!");
         return true;
     }
+    public List<Consulta> listaConsultas(){
+        return this.consultas;
+    }
 
 }

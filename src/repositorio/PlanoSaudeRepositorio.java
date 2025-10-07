@@ -6,7 +6,9 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
 
 public class PlanoSaudeRepositorio {
 
@@ -16,7 +18,7 @@ public class PlanoSaudeRepositorio {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(NOME_ARQUIVO), StandardCharsets.UTF_8))) {
             for (PlanoSaude plano : planos) {
-                String linha = String.format("NomePlano:%s,DescontoIdoso:%.2f,IsPlanoEspecial:%b",
+            String linha = String.format(Locale.US, "NomePlano:%s,DescontoIdoso:%.2f,IsPlanoEspecial:%b",
                         plano.getNomePlano(), plano.getDescontoIdoso(), plano.isPlanoEspecial()
                 );
 

@@ -36,7 +36,11 @@ public class MenuPrincipal {
         this.consultaServico = new ConsultaServico(medicoServico,pacienteServico);
         this.internacaoServico = new InternacaoServico(pacienteServico,medicoServico);
 
-        this.relatoriosServico = new RelatoriosServico(pacienteServico,medicoServico,consultaServico,internacaoServico);
+        this.relatoriosServico = new RelatoriosServico(pacienteServico,
+                medicoServico,
+                consultaServico,
+                internacaoServico,
+                planoSaudeServico);
     }
     //loop do menu
     public void inicar(){

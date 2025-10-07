@@ -7,16 +7,15 @@ import entidades.plano.PlanoSaude;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class MenuPrincipal {
-    private MedicoServico medicoServico;
-    private PacienteServico pacienteServico;
-    private PlanoSaudeServico planoSaudeServico;
-    private ConsultaServico consultaServico;
-    private InternacaoServico internacaoServico;
-    private RelatoriosServico relatoriosServico;
+    private final MedicoServico medicoServico;
+    private final PacienteServico pacienteServico;
+    private final PlanoSaudeServico planoSaudeServico;
+    private final ConsultaServico consultaServico;
+    private final InternacaoServico internacaoServico;
+    private final RelatoriosServico relatoriosServico;
     //deixar o menu visual primário mais bonito
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_CYAN_LIGHT = "\u001B[96m";  //Ciano
@@ -25,7 +24,7 @@ public class MenuPrincipal {
     public static final String ANSI_YELLOW = "\u001B[33m"; // amarelo para sair
 
 
-    private Scanner scanner;
+    private final Scanner scanner;
     private final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public MenuPrincipal(){
@@ -145,49 +144,74 @@ public class MenuPrincipal {
     }
 //cadastrar paciente especial
     private void cadastrarPacienteEspecial(){
-        System.out.println("\n--- Cadastro Paciente Especial ---");
-        System.out.println("Nome: "); String nome = scanner.nextLine();
-        System.out.println("CPF: "); String cpf = scanner.nextLine();
-        System.out.println("Idade: "); int idade = scanner.nextInt();scanner.nextLine();
-        System.out.println("Nome do plano de saúde: "); String nomePlano = scanner.nextLine();
+        System.out.println("\n--- Cadastro de Paciente Especial ---");
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine().trim();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine().trim();
 
-        PlanoSaude plano = planoSaudeServico.buscarPlanoPorNome(nomePlano);
-        if (plano == null){
-            System.err.println("Erro: Plano de Saúde '" + nomePlano + "' não encontrado. Cadastre-o primeiro!");
+        int idade = 0;
+
+        System.out.print("Idade: ");
+        if (scanner.hasNextInt()) {
+            idade = scanner.nextInt();
+            scanner.nextLine();
+        } else {
+            System.err.println("Erro: Idade inválida. Operação cancelada.");
+            scanner.nextLine();
             return;
         }
-        pacienteServico.cadastrarPacienteEspecial(nome,cpf,idade,plano);
+        PlanoSaude planoEscolhido = selecionarPlanoSaude();
+        if (planoEscolhido == null) {
+            return;
+        }
+        pacienteServico.cadastrarPacienteEspecial(nome, cpf, idade, planoEscolhido);
+        System.out.println("Paciente Especial '" + nome + "' cadastrado com sucesso!");
     }
 //cadastrar plano de saude
     private void cadastrarPlanoSaude(){
         System.out.println("\n--- Cadastrar Plano de Saúde ---");
         System.out.println("Nome do Plano: ");String nomePlano = scanner.nextLine().trim();
         System.out.println("Desconto para idosos (ex: 0.15 para 15%): "); String descontoStr = scanner.nextLine().trim();
-        System.out.println("È um Plano Especial? (1- Sim ; 2- Não): ");
-        double descontoIdoso = 0.0;
-        boolean isPlanoEspecial = false;
+        System.out.println("È um Plano Especial? (1- Sim ; 2- Não): "); String planoEspecialStr = scanner.nextLine().trim();
+        double descontoIdoso;
         int planoEspecialInt;
-        try{
-            if (scanner.hasNextInt()){
-                planoEspecialInt = scanner.nextInt();
-            }else{
-                throw new NumberFormatException("Opção de plano deve ser um número!(1 ou 2)");
-            }
-            scanner.nextLine();
+        Map<String,Double> descontosEspeciais = new HashMap<>();
+
+        try {
             descontoIdoso = Double.parseDouble(descontoStr);
-            isPlanoEspecial = (planoEspecialInt == 1);
-
-        }catch (NumberFormatException e){
-            System.err.println("Erro: O valor do desconto deve ser um número válido(use o ponto decimal). Operação cancelada!");
-            return;
-        }
-        if(planoEspecialInt != 1 && planoEspecialInt != 2){
-            System.err.println("Erro: Opção de plano especial deve ser 1 ou 2. ");
+            planoEspecialInt = Integer.parseInt(planoEspecialStr);
+        } catch (NumberFormatException e) {
+            System.err.println("ERRO: Desconto ou opção 1/2 está em formato inválido.");
             return;
         }
 
-        planoSaudeServico.cadastrarPlano(nomePlano,descontoIdoso,isPlanoEspecial);
-        System.out.println("Plano de Saúde " + nomePlano + "cadastrado com sucesso!");
+        if (planoEspecialInt != 1 && planoEspecialInt != 2) {
+            System.err.println("ERRO: Opção de Plano Especial deve ser 1 ou 2.");
+            return;
+        }
+        System.out.println("\n--- Configuração de Descontos por Especialidade ---");
+        String adicionarMais = "1";
+        while (adicionarMais.equals("1")) {
+            System.out.print("Nome da Especialidade (ex: Cardiologia, Pediatria): ");
+            String especialidade = scanner.nextLine().trim();
+
+            System.out.print("Percentual de Desconto (ex: 0.10 para 10%): ");
+            String percStr = scanner.nextLine().trim();
+
+            try {
+                double percentual = Double.parseDouble(percStr);
+                descontosEspeciais.put(especialidade, percentual);
+            } catch (NumberFormatException e) {
+                System.err.println("Desconto inválido. Este desconto será ignorado.");
+            }
+
+            System.out.print("Adicionar outro desconto? (1-Sim / 2-Não): ");
+            adicionarMais = scanner.nextLine().trim();
+        }
+        boolean isPlanoEspecial = (planoEspecialInt == 1);
+
+        planoSaudeServico.cadastrarPlano(nomePlano,descontoIdoso,isPlanoEspecial,descontosEspeciais);
     }
     //menu e metodos de agendamento
     private void menuAgendamentoInternacao(){
@@ -335,6 +359,32 @@ private void agendarConsulta(){
             return;
         }
         relatoriosServico.relatorioConsultasStatus(status);
+    }
+//exibir planos para permitir a selecao
+    private PlanoSaude selecionarPlanoSaude(){
+        List<PlanoSaude> planosDisponiveis = planoSaudeServico.listarPlanos();
+        if (planosDisponiveis.isEmpty()){
+            System.err.println("Erro: nenhum plano cadastrado!");
+            return null;
+        }
+        System.out.println("\n--- Seleção do Plano de Saúde ---");
+        for (int i=0; i< planosDisponiveis.size(); i++){
+            PlanoSaude p =planosDisponiveis.get(i);
+            System.out.printf("%s%d. %s (Desconto Idoso: %.0f%%)%s\n", ANSI_WHITE, i+1,p.getNomePlano(),p.getDescontoIdoso()*100,ANSI_RESET);
+        }
+        System.out.println(ANSI_BLUE + "Escolha o número do plano: " + ANSI_RESET);
+        if (!scanner.hasNextInt()){
+            System.err.println("Opção inválida!");
+            scanner.nextLine();
+            return null;
+        }
+        int escolha = scanner.nextInt();
+        scanner.nextLine();
+        if (escolha < 1 || escolha>planosDisponiveis.size()){
+            System.err.println("Erro: Opção de plano fora da lista. Tente novamente.");
+            return null;
+        }
+        return planosDisponiveis.get(escolha-1);
     }
 
 }

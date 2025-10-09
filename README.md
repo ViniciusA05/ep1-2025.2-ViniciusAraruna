@@ -24,10 +24,8 @@ O Sistema de Gerenciamento Hospitalar foi desenvolvido em Java como o Projeto Fi
     clonando o repositório, e encaminhando para sua IDE. (recomendado)
 
 2. **Execução:**  
-   ```bash
-   java -cp bin main
-   ```
-   ou: Depois de clonar o repositório na sua IDE de preferência, procure pela classe main, executando-a.
+   
+     Depois de clonar o repositório na sua IDE de preferência, procure pela classe main, executando-a.
 
 3. **Estrutura de Pastas:**  
 ```
